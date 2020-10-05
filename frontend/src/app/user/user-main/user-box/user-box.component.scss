@@ -1,0 +1,28 @@
+.user-box {
+  background: #fff;
+  border-radius: 5px;
+  margin: 0.75rem 0;
+  padding: 1rem;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+  &__title {
+    display: flex;
+    flex-wrap: wrap;
+    .avatar {
+      object-fit: cover;
+      border-radius: 50%;
+      height: 75px;
+      width: 75px;
+    }
+    &-head {
+      margin-left: 1rem;
+    }
+  }
+}
+.info {
+  display: flex;
+  flex-wrap: wrap;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

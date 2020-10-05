@@ -1,0 +1,15 @@
+.user-list {
+  min-height: 100vh;
+  padding: 4rem 0;
+  margin-bottom: unset;
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    .form-group {
+      flex: 0.15;
+    }
+    border-bottom: 1px solid #c3c3c3;
+  }
+}

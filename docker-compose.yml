@@ -1,0 +1,39 @@
+version: '3.3'
+services:
+  app:
+    image: node
+    build: ./backend
+    environment:
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      ACCESS_TOKEN: ${ACCESS_TOKEN_SECRET}
+    ports:
+      - 8800:8800
+    restart: on-failure
+    volumes:
+      - './uploads/:/usr/src/app/uploads'
+    networks:
+      - backend-net
+    depends_on:
+      - db
+  front:
+    build: ./frontend
+    ports:
+      - 4200:4200
+    restart: on-failure
+    networks:
+      - backend-net
+  db:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - 27017:27017
+    networks:
+      - backend-net
+
+networks:
+  backend-net:
+    driver: bridge

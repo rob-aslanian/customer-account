@@ -1,0 +1,61 @@
+<div class="container mt-4 mb-4">
+  <ng-container *ngIf="user$ | async as user; else loader">
+    <div class="card mb-3">
+      <div class="row no-gutters">
+        <div class="col-md-4">
+          <img [src]="user?.avatar | avatar" class="card-img" />
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title mb-0">
+              {{ user?.first_name }} {{ user?.last_name }}
+              <img
+                [src]="'assets/img/' + user?.gender + '.svg'"
+                alt="gender"
+                class="gender"
+              />
+            </h5>
+            <small class="text-muted" *ngIf="user?.createdAt as createdAt">
+              Created At : {{ createdAt | date }}
+            </small>
+            <div class="card-info">
+              <span *ngIf="user?.personal_number as idNumber">
+                Personal Number : {{ idNumber }}
+              </span>
+              <span *ngIf="user?.phone as phone"
+                >Phone:
+                <a [href]="'tel:' + phone">{{ phone }}</a>
+              </span>
+            </div>
+            <hr />
+            <div class="row mt-2">
+              <div class="col-6" *ngIf="user?.legal_address as legalAddress">
+                <h6>Legal Address</h6>
+                <hr />
+                <app-user-detail-address
+                  [data]="legalAddress"
+                ></app-user-detail-address>
+              </div>
+              <div class="col-6" *ngIf="user?.actual_address as actualAddress">
+                <h6>Actual Address</h6>
+                <hr />
+                <app-user-detail-address
+                  [data]="actualAddress"
+                ></app-user-detail-address>
+              </div>
+            </div>
+            <div class="mt-2" *ngIf="user?.accounts?.length > 0">
+              <h6>Accounts</h6>
+              <hr />
+              <app-account-table [accounts]="user.accounts"></app-account-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #loader>
+    <app-spinner></app-spinner>
+  </ng-template>
+</div>

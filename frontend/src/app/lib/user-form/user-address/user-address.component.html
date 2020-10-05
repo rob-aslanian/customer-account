@@ -1,0 +1,34 @@
+<label>{{ addressType === "actual" ? "Actual" : "Legal" }} Address</label>
+<ng-container *ngIf="addressForm">
+  <div class="row" [formGroup]="addressForm">
+    <div class="col-sm-6">
+      <input
+        validateInput
+        type="text"
+        class="form-control"
+        placeholder="Country"
+        formControlName="country"
+      />
+    </div>
+    <div class="col-sm-6">
+      <input
+        validateInput
+        type="text"
+        class="form-control"
+        placeholder="City"
+        formControlName="city"
+      />
+    </div>
+    <div class="col mt-3">
+      <div class="form-group">
+        <input
+          validateInput
+          type="text"
+          class="form-control"
+          placeholder="Address"
+          formControlName="address"
+        />
+      </div>
+    </div>
+  </div>
+</ng-container>

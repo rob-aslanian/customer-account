@@ -1,0 +1,21 @@
+<div class="user-box" *ngIf="user">
+  <div class="user-box__title">
+    <img [src]="user?.avatar | avatar" alt="avatar" class="avatar" />
+    <div class="user-box__title-head">
+      <div class="info">
+        <span class="mr-2">{{ user?.first_name }}</span>
+        <span>{{ user?.last_name }}</span>
+        <img
+          [src]="'assets/img/' + user?.gender + '.svg'"
+          alt="gender"
+          class="gender"
+        />
+      </div>
+      <a [href]="'tel:' + user?.phone">
+        {{ user?.phone }}
+      </a>
+    </div>
+  </div>
+  <hr />
+  <button class="btn btn-dark" [routerLink]="['user', user._id]">Detail</button>
+</div>

@@ -1,0 +1,71 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ account ? "Update account" : "Add account" }}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="close()">
+    <span>&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="accountForm" (ngSubmit)="save($event)">
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label for="accountType">Account Type</label>
+          <app-validation-alert
+            *ngIf="
+              accountForm.get('account_type').dirty ||
+              accountForm.get('account_type').touched
+            "
+            [errors]="accountForm.get('account_type').errors"
+          ></app-validation-alert>
+          <select
+            validateInput
+            class="form-control mt-1"
+            id="accountType"
+            formControlName="account_type"
+          >
+            <option value="" disabled selected>Select type</option>
+            <option
+              *ngFor="let accountType of accountTypes | keyvalue"
+              [value]="accountType.key"
+            >
+              {{ accountType.value }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group">
+          <label for="exampleFormControlSelect1">Currency</label>
+          <app-validation-alert
+            *ngIf="
+              accountForm.get('currency').dirty ||
+              accountForm.get('currency').touched
+            "
+            [errors]="accountForm.get('currency').errors"
+          ></app-validation-alert>
+          <div class="mt-1">
+            <ng-multiselect-dropdown
+              placeholder="Select Currencies"
+              [settings]="dropdownSettings"
+              [data]="currencies"
+              formControlName="currency"
+            >
+            </ng-multiselect-dropdown>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group form-check">
+      <input
+        type="checkbox"
+        class="form-check-input"
+        id="active"
+        formControlName="is_active"
+      />
+      <label class="form-check-label" for="active">Active</label>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-success">Save</button>
+    </div>
+  </form>
+</div>

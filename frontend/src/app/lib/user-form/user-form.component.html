@@ -1,0 +1,127 @@
+<div class="row">
+  <div class="col-sm-3">
+    <app-upload-avatar
+      [avatarUrl]="user?.avatar ? '/files/' + user?.avatar : ''"
+      (onSelectAvatar)="selectAvatar($event)"
+    ></app-upload-avatar>
+  </div>
+  <div class="col">
+    <form [formGroup]="userForm" (ngSubmit)="submit($event)">
+      <div class="form-row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="firstName">First name</label>
+            <app-validation-alert
+              *ngIf="userForm.get('first_name').dirty"
+              [errors]="userForm.get('first_name').errors"
+            ></app-validation-alert>
+            <input
+              validateInput
+              type="text"
+              class="form-control mt-2"
+              id="firstName"
+              formControlName="first_name"
+              placeholder="First name"
+              maxlength="50"
+            />
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <app-validation-alert
+              *ngIf="userForm.get('last_name').dirty"
+              [errors]="userForm.get('last_name').errors"
+            ></app-validation-alert>
+            <label for="lastName">Last name</label>
+            <input
+              validateInput
+              formControlName="last_name"
+              type="text"
+              class="form-control mt-2"
+              id="lastName"
+              placeholder="Last name"
+              maxlength="50"
+            />
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="personalNumber">Personal number</label>
+            <app-validation-alert
+              *ngIf="userForm.get('personal_number').dirty"
+              [errors]="userForm.get('personal_number').errors"
+            ></app-validation-alert>
+            <input
+              validateInput
+              formControlName="personal_number"
+              type="text"
+              maxlength="11"
+              class="form-control mt-2"
+              placeholder="Personal number"
+              id="personalNumber"
+            />
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="phoneNumber">Phone number</label>
+            <app-validation-alert
+              *ngIf="userForm.get('phone').dirty"
+              [errors]="userForm.get('phone').errors"
+            ></app-validation-alert>
+            <input
+              validateInput
+              formControlName="phone"
+              type="number"
+              class="form-control mt-2"
+              placeholder="Phone number"
+              id="phoneNumber"
+            />
+          </div>
+        </div>
+        <div class="col-sm-6 mt-2">
+          <app-user-address
+            addressType="legal"
+            [formGroup]="addressForm"
+          ></app-user-address>
+          <button
+            *ngIf="
+              addressForm.get('country').value !== '' ||
+              addressForm.get('city').value !== '' ||
+              addressForm.get('address').value !== ''
+            "
+            class="btn btn-warning copy-btn"
+            (click)="copyLegalAddressToActual($event)"
+          >
+            >
+          </button>
+        </div>
+        <div class="col-sm-6 mt-2">
+          <app-user-address
+            addressType="actual"
+            [formGroup]="userForm.get('actual_address')"
+          ></app-user-address>
+        </div>
+        <div class="col mb-4">
+          <div
+            class="form-check form-check-inline"
+            *ngFor="let gd of genders | keyvalue"
+          >
+            <input
+              formControlName="gender"
+              class="form-check-input"
+              type="radio"
+              name="gender"
+              [id]="gd.key"
+              [value]="gd.key"
+            />
+            <label class="form-check-label" [for]="gd.key">{{
+              gd.value
+            }}</label>
+          </div>
+        </div>
+      </div>
+      <ng-content></ng-content>
+    </form>
+  </div>
+</div>

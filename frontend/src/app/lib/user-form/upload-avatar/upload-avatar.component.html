@@ -1,0 +1,28 @@
+<div class="file-upload">
+  <div *ngIf="!avatarUrl">
+    <input
+      class="d-none"
+      type="file"
+      accept="image/*"
+      #avatar
+      (change)="uploadFile($event)"
+      id="avatar"
+    />
+    <div class="image-upload-wrap" appDragDrop (fileDroped)="dropFile($event)">
+      <label class="drag-text" for="avatar">
+        <span>Drag and drop a file</span>
+      </label>
+    </div>
+    <button class="file-upload-btn" (click)="avatar.click()">Upload</button>
+  </div>
+  <div class="file-upload-content" *ngIf="avatarUrl">
+    <div class="file-upload-image">
+      <img [src]="avatarUrl | safe: 'url'" />
+    </div>
+    <div class="image-title-wrap">
+      <button type="button" (click)="remove()" class="remove-image">
+        Remove
+      </button>
+    </div>
+  </div>
+</div>

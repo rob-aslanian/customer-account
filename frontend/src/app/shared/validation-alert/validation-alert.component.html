@@ -1,0 +1,28 @@
+<div class="validation-alert" *ngIf="errors">
+  <ng-container *ngFor="let error of errors | keyvalue">
+    <ng-container [ngSwitch]="error.key">
+      <span *ngSwitchCase="'required'"> The field is required </span>
+      <span *ngSwitchCase="'personal_number'">
+        Personal number must contain only number
+      </span>
+      <span *ngSwitchCase="'phone_number'">
+        Phone number must start with 5
+      </span>
+      <span *ngSwitchCase="'geo_en_letters'">
+        Must contain only letters (Geo or Eng)
+      </span>
+      <span *ngSwitchCase="'min'">
+        Min field value is {{ error?.value?.min }}
+      </span>
+      <span *ngSwitchCase="'minlength'">
+        Min field length is {{ error?.value?.requiredLength }}
+      </span>
+      <span *ngSwitchCase="'max'">
+        Max field value is {{ error?.value?.max }}
+      </span>
+      <span *ngSwitchCase="'maxlength'">
+        Max field length is {{ error?.value?.requiredLength }}
+      </span>
+    </ng-container>
+  </ng-container>
+</div>

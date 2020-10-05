@@ -1,0 +1,14 @@
+{
+  "/api/*": {
+    "target": "http://app:8800/api/v1",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": { "^/api": "" }
+  },
+  "/files/*": {
+    "target": "http://app:8800/files",
+    "secure": false,
+    "changeOrigin": true,
+    "pathRewrite": { "^/files": "" }
+  }
+}

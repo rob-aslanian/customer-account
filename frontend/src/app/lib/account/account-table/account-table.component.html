@@ -1,0 +1,63 @@
+<table
+  class="table table-hover"
+  [ngClass]="{ 'table-responsive': userID }"
+  *ngIf="accounts"
+>
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Type</th>
+      <th scope="col">Currencies</th>
+      <th scope="col">Status</th>
+      <th scope="col" *ngIf="isMe">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let account of accounts">
+      <th scope="row" *ngIf="account?._id as id">
+        {{ id | slice: -2 }}
+      </th>
+      <td *ngIf="account?.account_type as accountType">
+        {{ accountType }}
+      </td>
+      <td *ngIf="account?.currency as currencies">
+        {{ currencies | delimetr: " | " }}
+      </td>
+      <td>
+        <div
+          [ngClass]="{
+            active: account?.is_active,
+            'in-active': !account?.is_active
+          }"
+        ></div>
+      </td>
+      <td *ngIf="isMe">
+        <div ngbDropdown class="d-inline-block">
+          <button
+            class="btn btn-outline-primary"
+            id="dropdownBasic1"
+            ngbDropdownToggle
+          >
+            Actions
+          </button>
+          <div ngbDropdownMenu>
+            <button
+              ngbDropdownItem
+              class="btn btn-warning"
+              (click)="updateAccount(account)"
+            >
+              Update
+            </button>
+            <button
+              ngbDropdownItem
+              class="btn btn-danger"
+              (click)="deleteAccount(account._id)"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

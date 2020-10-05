@@ -1,0 +1,46 @@
+<div class="jumbotron" *ngIf="user$ | async as user">
+  <div class="row">
+    <div class="col">
+      <app-user-form [user]="user" (onSubmit)="updateProfile($event)">
+        <button type="submit" class="btn btn-success">Update</button>
+        <button
+          type="button"
+          class="btn btn-danger ml-3"
+          (click)="deleteProfile()"
+        >
+          Delete profile
+        </button>
+      </app-user-form>
+    </div>
+    <div class="col-4">
+      <div class="d-flex">
+        <h4>Accounts</h4>
+        <button
+          *ngIf="user?.accounts?.length > 0"
+          class="ml-3 btn btn-primary"
+          (click)="openModal()"
+        >
+          Add
+        </button>
+      </div>
+      <hr />
+      <div class="accounts">
+        <ng-container *ngIf="user?.accounts?.length; else noAccount">
+          <app-account-table
+            [userID]="user._id"
+            [accounts]="user.accounts"
+          ></app-account-table>
+        </ng-container>
+
+        <ng-template #noAccount>
+          <div class="pt-3 pb-3">
+            <p>You don`t have accounts</p>
+            <button class="btn btn-primary" (click)="openModal()">
+              Add Account
+            </button>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<ng-container *ngIf="user">
+  <div ngbDropdown class="user-popup">
+    <img [src]="user.avatar | avatar" ngbDropdownToggle />
+    <div ngbDropdownMenu>
+      <button ngbDropdownItem [routerLink]="['/users/setting']">
+        Edit Profile
+      </button>
+      <button ngbDropdownItem (click)="openModal()">Add Account</button>
+      <div class="dropdown-divider"></div>
+      <button ngbDropdownItem (click)="signOut($event)">Sign out</button>
+    </div>
+  </div>
+</ng-container>

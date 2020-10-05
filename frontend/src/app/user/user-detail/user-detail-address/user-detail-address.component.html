@@ -1,0 +1,11 @@
+<ul class="list-group list-group-flush">
+  <li class="list-group-item" *ngIf="data?.country as country">
+    <strong>Country:</strong> {{ country }}
+  </li>
+  <li class="list-group-item" *ngIf="data?.city as city">
+    <strong>City:</strong> {{ city }}
+  </li>
+  <li class="list-group-item" *ngIf="data?.address as address">
+    <strong>Address:</strong> {{ address }}
+  </li>
+</ul>

@@ -1,0 +1,36 @@
+<div class="jumbotron user-list">
+  <div class="container">
+    <app-spinner *ngIf="isLoading; else userContent"></app-spinner>
+    <ng-template #userContent>
+      <div class="user-list__head" *ngIf="users">
+        <h5>User amount: {{ amount }}</h5>
+        <div class="form-group">
+          <select
+            class="form-control"
+            (change)="sortChange($event.target.value)"
+          >
+            <option value="''" disabled selected>Sort</option>
+            <option
+              [value]="field.key"
+              *ngFor="let field of sortByFields | keyvalue"
+            >
+              By {{ field.value }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <app-user-box *ngFor="let user of users" [user]="user"> </app-user-box>
+      </div>
+      <div class="mt-4 float-right" *ngIf="amount > first">
+        <ngb-pagination
+          [(page)]="page"
+          [pageSize]="first"
+          [maxSize]="first"
+          (pageChange)="changeParam($event)"
+          [collectionSize]="amount"
+        ></ngb-pagination>
+      </div>
+    </ng-template>
+  </div>
+</div>
